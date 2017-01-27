@@ -25,8 +25,12 @@ public class DataAnalyzer {
     
     public void report() {
         System.out.println("Report:");
-        System.out.println("Average:" + average());
-        // TODO: Maximum, minimum
+        try {
+            System.out.println("Average:" + average());
+            // TODO: Maximum, minimum
+        } catch (NoDataException ex) {
+            System.out.println("No data entered");
+        }
     }
 
     /**
@@ -40,7 +44,11 @@ public class DataAnalyzer {
         analyzer.report();
     }
 
-    private double average() {
+    private double average() throws NoDataException {
+        if (data.isEmpty()) {
+            throw new NoDataException();
+        }
+        
         double sum = 0.0;
         for (Double d : data) {
             sum += d;
